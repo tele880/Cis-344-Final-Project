@@ -1,0 +1,50 @@
+Name: Bernard Tetteh 
+Class: Cis 344
+
+Hospital Portal System 
+Introduction 
+The Hospital Portal System improves patient record management at healthcare organizations by increasing online communication between patients and their clinicians. The essay delves deeply into the code's structure, features, and motivations for development.
+
+
+Code Structure and Functionality 
+
+To make maintenance and scaling easier, the project employs a modular architecture that divides problems into their component elements. Here are the important sections:
+
+The project uses a modular framework that divides issues into its separate components to make the project simpler to scale and maintain. The most important components are as follows:
+
+- portalServer.py: Installs the http.server module in Python to run an HTTP server.
+- portalDatabase.py: Controls data connection and query management for MySQL. 
+
+Functionalities 
+
+Scheduling Appointments 
+Scheduling appointment was and important feature that is included in portalServer.py through the do_GET and do_POST methods to enable appointment scheduling. ScheduleAppointment function in portDatabase.py ensures that appointmnets are executed securely by the help of foreign key constraints.
+
+Adding Patients and Doctors 
+The technology facilitates the seamless integration of physicians and patients by use of specialized interfaces. The do_GET method in portalServer.py handles pass requests to add doctors and patients. The scheduleAppointment function in portalDatabase.py handles data integrity checks during database insertion.
+
+Viewing Patient Records and Doctors
+The do GET function in portalServer.py can be used to easily view patient data and appointment details. The portalDatabase.py routines getAllPatients and getAllDoctors fetch the displayed data from the database.
+
+
+
+
+Discharging Patients 
+The database allows for the modification of a patient's discharge date when it is ready to be released. The dischargePatient method in portalDatabase.py modifies the records, whereas the do_GET function in portalServer.py handles discharge requests.
+
+Challenges faced 
+The system encountered a data corruption issue while accepting appointment times. Because appointment_time was specified as DECIMAL  Changing the data type to  TIME, resolved the problem.
+ 
+Conclusion
+
+With the collaborative development approach, a thorough evaluation method ensured the durability of the system. In order to ensure that the system can adjust to the evolving demands of the healthcare industry, it is essential to address present issues and get ready for upcoming improvements.
+
+
+
+
+ 
+
+ 
+
+ 
+

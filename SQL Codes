@@ -1,0 +1,100 @@
+use hospital_portal;
+
+
+CREATE TABLE patients (
+    patient_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    patient_name VARCHAR(45) NOT NULL,
+    age INT NOT NULL,
+    admission_date DATE,
+    discharge_date DATE
+);
+
+	insert into patients (patient_name, age, admission_date, discharge_date)
+values ("mardison james", 38, "2023/12/08", "2023/12/10"),
+		("Wesley Kumah", 25, "2023/10/27", "2023/12/03"),
+		("Kim Marie", 65, "2023/04/23", "2023/07/15");
+
+SELECT * from patients;
+
+
+
+
+CREATE TABLE appointments (
+    appointment_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    patient_id INT NOT NULL,
+    doctor_id INT NOT NULL,
+    appointment_date DATE NOT NULL,
+    appointment_time TIME NOT NULL,  
+    FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
+    FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id)
+);
+
+
+SELECT * from appointments;
+
+DELIMITER //
+
+CREATE PROCEDURE ScheduleAppointment(
+	IN patientappointment_id INT,
+    IN doctorappointment_id INT,
+    IN Scheduleappointment_date DATE,
+    IN Scheduleappointment_time TIME
+	)
+
+BEGIN 
+	INSERT INTO appointments (patient_id, doctor_id, appointment_date, appointment_time) 
+VALUES (patientappointment_id, doctorappointment_id, Scheduleappointment_date, Scheduleappointment_time);
+
+    
+END //
+    
+    DELIMITER ;
+    
+DELIMITER // 
+
+CREATE PROCEDURE DischargePatients(
+	IN Patientappointment_id INT 
+    ) 
+    
+    BEGIN
+		UPDATE PATIENTS
+        SET discharge_date = CURRENT_DATE()
+        WHERE Patient_id = patientappointment_id;
+        
+	END // 
+    
+DELIMITER ;
+ 
+
+CREATE TABLE doctors (
+    doctor_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    doctor_name VARCHAR(45) NOT NULL,
+    specialization VARCHAR(45) NOT NULL
+);
+
+insert into doctors (doctor_name, specialization)
+values  ("Jonathan Torsu", "Anesthesiology"),
+		("Benewaa Yeaboah", "Neurology"),
+		("Eileen Akam", "Psychiatry");
+        
+SELECT * from doctors;
+
+CALL ScheduleAppointment (5,5, "2020-10-23", '4:00');
+
+CREATE VIEW SeeAppointment
+AS 
+SELECT 
+	doctors.doctor_id,
+     doctors.doctor_name,
+     doctors.specialization, 
+     appointments.appointment_id,
+     appointments.appointment_date,
+     patients.patient_id,
+     patients.patient_name 
+FROM
+	doctors
+    JOIN appointments ON doctors.doctor_id = appointments.doctor_id
+    JOIN patients ON appointments.patient_id = patients.patient_id;
+    
+SELECT * FROM SeeAppointment
+		
